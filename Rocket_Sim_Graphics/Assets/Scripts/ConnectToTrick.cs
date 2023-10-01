@@ -14,13 +14,29 @@ public class ConnectToTrick : MonoBehaviour
     private IPEndPoint endpoint;
     private Socket sock;
 
-    public string ipAddress;
-    public ushort portNum;
+    public string ipAddress = "";
+    public Int32 portNum = 0;
     public Vector3 rocketPos;
     public Vector3 planetPos;
 
     // Start is called before the first frame update
     void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //var buffer = new byte[1024];
+        //var received = sock.Receive(buffer, SocketFlags.None);
+        //var response = Encoding.UTF8.GetString(buffer, 0, received);
+        //Debug.Log("Response: " + response);
+
+        
+    }
+
+    public void ConnectToServer()
     {
         IPAddress ip = new IPAddress(Encoding.ASCII.GetBytes(ipAddress));
 
@@ -39,14 +55,9 @@ public class ConnectToTrick : MonoBehaviour
             "trick.var_unpause()\n";
 
         sock.Send(Encoding.ASCII.GetBytes(trickVar), SocketFlags.None);
-    }
+        Debug.Log("sim started ---------");
+        Debug.Log("ip address " + ipAddress);
+        Debug.Log("port number " + portNum);
 
-    // Update is called once per frame
-    async void Update()
-    {
-        var buffer = new byte[1024];
-        var received = sock.Receive(buffer, SocketFlags.None);
-        var response = Encoding.UTF8.GetString(buffer, 0, received);
-        Debug.Log("Response: " + response);
     }
 }
