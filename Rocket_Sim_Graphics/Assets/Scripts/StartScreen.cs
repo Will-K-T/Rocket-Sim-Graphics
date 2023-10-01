@@ -44,7 +44,7 @@ public class StartScreen : MonoBehaviour
             return;
 
         }
-        trick.ipAddress = ipAddr.text;
+        trick.ipAddress = ipAddr.text.Remove(ipAddr.text.Length - 1);
         trick.portNum = port;
         errorMessage.text = "";
         gameObject.SetActive(false);

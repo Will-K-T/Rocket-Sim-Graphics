@@ -13,6 +13,7 @@ public class ConnectToTrick : MonoBehaviour
 {
     private IPEndPoint endpoint;
     private Socket sock;
+    private bool hasStarted;
 
     public string ipAddress = "";
     public Int32 portNum = 0;
@@ -22,23 +23,26 @@ public class ConnectToTrick : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        hasStarted = false;   
     }
 
     // Update is called once per frame
     void Update()
     {
-        //var buffer = new byte[1024];
-        //var received = sock.Receive(buffer, SocketFlags.None);
-        //var response = Encoding.UTF8.GetString(buffer, 0, received);
-        //Debug.Log("Response: " + response);
+        if (hasStarted)
+        {
+            var buffer = new byte[1024];
+            var received = sock.Receive(buffer, SocketFlags.None);
+            var response = Encoding.UTF8.GetString(buffer, 0, received);
+            Debug.Log("Response: " + response);
+        }
 
         
     }
 
     public void ConnectToServer()
     {
-        IPAddress ip = new IPAddress(Encoding.ASCII.GetBytes(ipAddress));
+        IPAddress ip = IPAddress.Parse(ipAddress);
 
         endpoint = new IPEndPoint(ip, portNum);
 
@@ -55,9 +59,10 @@ public class ConnectToTrick : MonoBehaviour
             "trick.var_unpause()\n";
 
         sock.Send(Encoding.ASCII.GetBytes(trickVar), SocketFlags.None);
-        Debug.Log("sim started ---------");
-        Debug.Log("ip address " + ipAddress);
-        Debug.Log("port number " + portNum);
+        Debug.Log("--------- Connected to trick Variable Server ---------");
+        Debug.Log("IP: " + ipAddress);
+        Debug.Log("port: " + portNum);
 
+        hasStarted = true;
     }
 }
