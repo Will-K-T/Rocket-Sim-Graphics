@@ -1,2 +1,2 @@
 # Rocket-Sim-Graphics
-Unity graphics for my rocket sims!
+Unity graphics for our rocket sims!
