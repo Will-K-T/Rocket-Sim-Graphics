@@ -10,14 +10,12 @@ public class StartScreen : MonoBehaviour
     public TextMeshProUGUI ipAddr;
     public TextMeshProUGUI portNum;
     public TextMeshProUGUI errorMessage;
-    public GameObject rocket;
 
     private ConnectToTrick trick;
     // Start is called before the first frame update
     void Start()
     {
         trick = trickConnector.GetComponent<ConnectToTrick>();
-        
     }
 
     // Update is called once per frame
@@ -44,13 +42,13 @@ public class StartScreen : MonoBehaviour
             return;
 
         }
+
         trick.ipAddress = ipAddr.text.Remove(ipAddr.text.Length - 1);
         trick.portNum = port;
         errorMessage.text = "";
         gameObject.SetActive(false);
 
         trick.ConnectToServer();
-        rocket.SetActive(true);
     }
     
 }
